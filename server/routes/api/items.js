@@ -32,10 +32,20 @@ router.get('/edit/:id',function(req, res, next){
   })
 })
 
-router.get('/delete/:id',function(req, res, next){
+router.delete('/:id',function(req, res, next){
    db.Item.destroy({where:{id:req.params.id}})
-   .then(function(){
-     res.redirect('/items')
+   .then(function(result){
+     if(result){
+       res.json({
+         status: true,
+         msg: 'deleted'
+       })
+     } else {
+       res.json({
+         status: false
+       })
+     }
+    //  res.redirect('/items')
    })
 })
 
