@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors')
 var session = require('express-session')
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,6 +13,7 @@ var items = require('./routes/items');
 var itemsAPI = require('./routes/api/items');
 var cart = require('./routes/cart');
 var app = express();
+app.use(cors())
 app.use(cookieParser('sssshhhh'));
 app.use(session({
   cookieName: 'session',
