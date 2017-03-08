@@ -1,8 +1,8 @@
-var Book = require('../models/book')
+var Item = require('../models/book')
 
 module.exports = {
-  createBook: function(req,res){
-    Book.create({
+  createItem: function(req,res){
+    Item.create({
       isbn: req.body.isbn,
       title: req.body.title,
       author: req.body.author,
@@ -16,8 +16,8 @@ module.exports = {
       }
     })
   },
-  updateBook: function(req,res){
-    Book.findOneAndUpdate({_id:req.params.id}, req.body, {new:true}, function(err, data){
+  updateItem: function(req,res){
+    Item.findOneAndUpdate({_id:req.params.id}, req.body, {new:true}, function(err, data){
       if (err){
         res.send(err)
       }else{
@@ -25,8 +25,8 @@ module.exports = {
       }
     })
   },
-  deleteBook: function(req,res){
-    Book.findOneAndRemove({_id:req.params.id}, function(err, data){
+  deleteItem: function(req,res){
+    Item.findOneAndRemove({_id:req.params.id}, function(err, data){
       if (err){
         res.send(err)
       }else{
@@ -34,8 +34,8 @@ module.exports = {
       }
     })
   },
-  readBooks: function(req,res){
-    Book.find({}, function(err,data){
+  readItems: function(req,res){
+    Item.find({}, function(err,data){
       if(err){
         res.send(err)
       }else{
@@ -43,8 +43,8 @@ module.exports = {
       }
     })
   },
-  readBook: function(req,res){
-    Book.find({_id:req.params.id}, function(err,data){
+  readItem: function(req,res){
+    Item.find({_id:req.params.id}, function(err,data){
       if(err){
         res.send(err)
       }else{

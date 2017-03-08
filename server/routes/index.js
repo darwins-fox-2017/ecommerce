@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var bookController = require('../controllers/bookController')
+var itemController = require('../controllers/itemController')
 var customerController = require('../controllers/customerController')
 var transactionController = require('../controllers/transactionController')
 
@@ -10,11 +10,11 @@ router.get('/', function(req, res, next) {
 });
 
 //routing books
-router.get('/api/book/:id', bookController.readBook)
-router.get('/api/books', bookController.readBooks)
-router.post('/api/book', bookController.createBook)
-router.put('/api/book/:id', bookController.updateBook)
-router.delete('/api/book/:id', bookController.deleteBook)
+router.get('/api/book/:id', itemController.readBook)
+router.get('/api/books', itemController.readBooks)
+router.post('/api/book', itemController.createBook)
+router.put('/api/book/:id', itemController.updateBook)
+router.delete('/api/book/:id', itemController.deleteBook)
 
 //routing customer
 router.get('/api/customer/:id', customerController.readCustomer)

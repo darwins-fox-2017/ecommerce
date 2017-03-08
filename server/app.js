@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/library', function (err) {
+mongoose.connect('mongodb://localhost/ecommerce2', function (err) {
   if (err) throw err;
   console.log("connected")
 })
