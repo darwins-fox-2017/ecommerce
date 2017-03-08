@@ -57,8 +57,6 @@ export default {
             this.$router.push('/items/new')
         },
         handleDelete(index, row) {
-            console.log(index);
-            console.log(row.id);
             this.items.slice(index, 1)
             let self = this
             axios.delete(host + '/items/' + row.id).then(response => {
@@ -73,6 +71,9 @@ export default {
                     })
                 }
             })
+        },
+        handleEdit(index, row) {
+            this.$router.push('/items/' + row.id + '/edit')
         },
         formatter(row, column) {
             return row.address;

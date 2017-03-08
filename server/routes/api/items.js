@@ -39,10 +39,11 @@ router.get('/generate/:amount', function(req, res, next){
 
 })
 
-router.get('/edit/:id',function(req, res, next){
+router.get('/:id/edit',function(req, res, next){
   db.Item.findOne({where:{id:req.params.id}})
   .then(function(item){
-    res.render('items/edit',{item})
+    res.json(item)
+    // res.render('items/edit',{item})
   })
 })
 
