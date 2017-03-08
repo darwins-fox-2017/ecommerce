@@ -5,7 +5,8 @@ var itemSchema = new Schema({
   name: String,
   description: String,
   price: String,
-  rete: Number,
+  rate: Number,
+  image: String,
   review: []
 },{
   timestamps:true

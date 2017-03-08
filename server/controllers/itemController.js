@@ -3,11 +3,11 @@ var Item = require('../models/book')
 module.exports = {
   createItem: function(req,res){
     Item.create({
-      isbn: req.body.isbn,
-      title: req.body.title,
-      author: req.body.author,
-      category: req.body.category,
-      stock: req.body.stock
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      rate: req.body.rate,
+      image: req.body.image
     }, function (err, data) {
       if (err) {
         res.send(err)
