@@ -5,22 +5,25 @@
         <el-menu-item index="1">Buah Tangan Dashboard</el-menu-item>
         <el-submenu index="2">
             <template slot="title">Items
-</template>
+            </template>
     <el-menu-item index="2-1">Show All</el-menu-item>
     <el-menu-item index="2-2">Create</el-menu-item>
   </el-submenu>
   <el-menu-item index="3">Orders</el-menu-item>
 </el-menu>
+<br/>
+<br/>
+<el-row :gutter="10">
+  <el-col :xs="24" :sm="24" :md="24" :lg="12" :offset="3"><div class="grid-content bg-purple"></div>
 
-    <!-- <img src="./assets/logo.png"> -->
-    <!-- <h1>{{ msg }}</h1> -->
-    <!-- <el-button @click.native="startHacking">Let's do it</el-button> -->
     <el-table
       :data="items"
+      :default-sort = "{prop: 'name', order: 'descending'}"
       style="width: 100%">
       <el-table-column
         prop="name"
         label="Name"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
@@ -33,6 +36,14 @@
         label="Description">
       </el-table-column>
     </el-table>
+  </el-col>
+</el-row>
+
+
+    <!-- <img src="./assets/logo.png"> -->
+    <!-- <h1>{{ msg }}</h1> -->
+    <!-- <el-button @click.native="startHacking">Let's do it</el-button> -->
+
 
   </div>
 </template>
