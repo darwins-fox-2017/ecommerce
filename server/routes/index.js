@@ -10,11 +10,11 @@ router.get('/', function(req, res, next) {
 });
 
 //routing books
-router.get('/api/book/:id', itemController.readBook)
-router.get('/api/books', itemController.readBooks)
-router.post('/api/book', itemController.createBook)
-router.put('/api/book/:id', itemController.updateBook)
-router.delete('/api/book/:id', itemController.deleteBook)
+router.get('/api/item/:id', itemController.readItem)
+router.get('/api/items', itemController.readItems)
+router.post('/api/item', itemController.createItem)
+router.put('/api/item/:id', itemController.updateItem)
+router.delete('/api/item/:id', itemController.deleteItem)
 
 //routing customer
 router.get('/api/customer/:id', customerController.readCustomer)

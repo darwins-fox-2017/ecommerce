@@ -1,4 +1,4 @@
-var Item = require('../models/book')
+var Item = require('../models/item')
 
 module.exports = {
   createItem: function(req,res){
