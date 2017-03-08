@@ -47,6 +47,31 @@ router.get('/:id/edit',function(req, res, next){
   })
 })
 
+router.put('/:id/update', function(req, res, next){
+  db.Item.update({
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    pictlink: req.body.pictlink
+  }, {
+    where : {
+      id: req.params.id
+    }
+  }).then(x => {
+    if (x) {
+      res.json({
+        status: true,
+        msg: 'Item updated'
+      })
+    } else {
+      res.json({
+        status: false
+      })
+
+    }
+  })
+})
+
 router.delete('/:id',function(req, res, next){
    db.Item.destroy({where:{id:req.params.id}})
    .then(function(result){

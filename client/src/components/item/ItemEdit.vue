@@ -55,7 +55,9 @@ export default {
         },
         onSubmit() {
           let self = this
-          axios.post(host + '/items/new', self.form).then(x => {
+          console.log('isi router : ', self.$route.params.id);
+          axios.put(host + '/items/' + self.$route.params.id + '/update', self.form).then(x => {
+            console.log(x);
               if(x.status){
                 self.$router.push('/items')
               } else {
@@ -66,7 +68,6 @@ export default {
         },
         getItem(){
           let self = this
-          console.log(this.$router);
           axios.get(host + '/items/' + 5 + '/edit').then(item => {
             self.form = item.data
           })
