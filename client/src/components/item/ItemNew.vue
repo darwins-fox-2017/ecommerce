@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+let host = 'http://localhost:3000/api';
 export default {
     data() {
         return {
@@ -49,7 +51,15 @@ export default {
             this.$router.push('/items/')
         },
         onSubmit() {
-            console.log('submit!');
+          let self = this
+          axios.post(host + '/items/new', self.form).then(x => {
+              if(x.status){
+                self.$router.push('/items')
+              } else {
+                console.log('something wrong');
+              }
+          })
+          console.log('submit!');
         }
     }
 }

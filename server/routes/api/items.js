@@ -12,6 +12,20 @@ router.get('/', function(req, res, next) {
     })
 });
 
+router.post('/new', function(req, res, next){
+  db.Item.create({
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    pictlink: req.body.pictlink
+  }).then(result => {
+    res.json({
+      status: true,
+      msg: 'Item inserted'
+    })
+  })
+})
+
 router.get('/generate/:amount', function(req, res, next){
   // console.log(req.body);
   for (var i = 0; i < req.params.amount; i++) {
