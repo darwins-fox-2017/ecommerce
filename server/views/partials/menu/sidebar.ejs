@@ -1,0 +1,11 @@
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <% if(session.username) { %>
+    <a href="/cart" class="item">Cart</a>
+    <a href="/logout" class="item">Logout</a>
+  <% } else { %>
+    <a href="/login" class="item">Login</a>
+    <a href="/register" class="item">Signup</a>
+<% } %>
+</div>

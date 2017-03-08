@@ -1,0 +1,91 @@
+<% include ./partials/header %>
+
+<body>
+
+<!-- Following Menu -->
+<% include ./partials/menu/following %>
+
+
+<% include ./partials/menu/sidebar %>
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="ui inverted vertical masthead center aligned segment">
+
+    <% include ./partials/menu/inside %>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+        <!-- <div class="ui massive blue label">
+          Buah Tangan
+        </div> -->
+        Buah Tangan
+      </h1>
+      <h2>Habis liburan ? <br/>
+        Jangan lupa bawa buah tangan untuk orang tersayang.</h2>
+      <br>
+      <div class="ui huge primary button">Belanja Sekarang <i class="right arrow icon"></i></div>
+    </div>
+
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui middle center stackable grid container">
+      <div class="row">
+
+          <h2 class="ui center aligned icon header">
+          Kami lihat kamu lagi di <span class="ui huge blue label">Belitung</span> ya ? <br/> Ini dia oleh-oleh yang cocok buat kamu (:
+        </h2>
+      </div>
+
+      <div class="row">
+        <div class="ui link cards">
+
+<% items.forEach(function(item) { %>
+
+
+  <div class="card">
+    <div class="image">
+      <img src="<%= item.pictlink %>">
+    </div>
+    <div class="content">
+      <div class="header"><%= item.name %> </div>
+      <div class="meta">
+        <a>Makanan</a>
+      </div>
+      <div class="description">
+        <%= item.description %>
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="right floated">
+        <a href="/cart/add/<%= item.id %>" class="ui primary button">
+            Beli
+          </a>
+      </span>
+      <span>
+        <i class="money icon"></i>
+        <b>Rp. <%= item.price %>,-</b>
+      </span>
+    </div>
+  </div>
+
+<% })%>
+</div>
+      </div>
+
+    </div>
+  </div>
+  <% include ./partials/footer %>
+
+</div>
+
+</body>
+
+</html>
