@@ -12,8 +12,10 @@
   <el-menu-item index="3">Orders</el-menu-item>
 </el-menu>
 <br/>
+<router-link to="/user">Go to User</router-link>
 <br/>
-<el-row :gutter="10">
+<router-view></router-view>
+<!-- <el-row :gutter="10">
   <el-col :xs="24" :sm="24" :md="24" :lg="12" :offset="3"><div class="grid-content bg-purple"></div>
 
     <el-table
@@ -37,7 +39,7 @@
       </el-table-column>
     </el-table>
   </el-col>
-</el-row>
+</el-row> -->
 
 
     <!-- <img src="./assets/logo.png"> -->
