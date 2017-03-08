@@ -16,27 +16,23 @@
     <!-- <h1>{{ msg }}</h1> -->
     <!-- <el-button @click.native="startHacking">Let's do it</el-button> -->
     <el-table
-    :data="tableData"
-    border
-    :default-sort = "{prop: 'date', order: 'descending'}"
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="Date"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="Name"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="Address"
-      :formatter="formatter">
-    </el-table-column>
-  </el-table>
+      :data="items"
+      style="width: 100%">
+      <el-table-column
+        prop="name"
+        label="Name"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        label="Price"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="description"
+        label="Description">
+      </el-table-column>
+    </el-table>
 
   </div>
 </template>
@@ -46,37 +42,24 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            msg: 'Use Vue 2.0 Today!',
+            msg: 'Pakai Vue 2.0 sekarang!',
             activeIndex: '1',
             activeIndex2: '1',
-            tableData: [{
-                date: '2016-05-03',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles'
-            }, {
-                date: '2016-05-02',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles'
-            }, {
-                date: '2016-05-04',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles'
-            }, {
-                date: '2016-05-01',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles'
-            }],
             items: []
         }
     },
     created() {
       console.log('run');
+      let self = this;
       let host = 'http://localhost:3000';
         axios.get(host + '/api/items')
             .then(response => {
                 // JSON responses are automatically parsed.
                 console.log(response);
-                this.items = response
+                console.log(this);
+                console.log(self);
+
+                self.items = response.data
             })
             .catch(e => {
                 console.log(e);

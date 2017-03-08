@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+npm-debug.log
 server/node_modules
 server/npm-debug.log
 server/.env
