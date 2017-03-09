@@ -56,7 +56,7 @@ router.get('/add/:cartid',function(req,res,next){
 
 router.get('/delete/:itemid',function(req,res,next){
    if (req.session) {
-    db.Chart.findOne({
+    db.Cart.findOne({
       where:
       {
         userid:req.session.userid,
@@ -64,7 +64,7 @@ router.get('/delete/:itemid',function(req,res,next){
       }
     }).then(function(chart){
       console.log(chart.id);
-       db.Chart.destroy({
+       db.Cart.destroy({
          where:{
           id:chart.id
          }

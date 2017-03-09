@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Chart = sequelize.define('Chart', {
+  var Cart = sequelize.define('Cart', {
     userid: DataTypes.INTEGER,
     itemid: DataTypes.INTEGER
   }, {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Chart;
+  return Cart;
 };
