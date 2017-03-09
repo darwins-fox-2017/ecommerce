@@ -31,7 +31,7 @@
                     <el-button style="float: right;" type="primary">Purchase now</el-button>
                 </div>
                 <div v-for="item in cart" class="text item">
-                      {{ item.name }} <span class="right">{{ toRupiah(item.price) }}</span>
+                      {{ item.product_name }} [ X {{ item.quantity }} ]<span class="right">{{ toRupiah(item.subtotal) }}</span>
                 </div>
                 <div class="">
                   <span class="total title">Total</span> <span class="total right">{{ total }}</span>
@@ -62,8 +62,7 @@ export default {
     },
     computed: {
       total: function(){
-        console.log('--------------------', rupiah.convert(_.sumBy(this.cart, 'price')));
-        return rupiah.convert(_.sumBy(this.cart, 'price'))
+        return rupiah.convert(_.sumBy(this.cart, 'subtotal'))
       }
     },
     methods: {
@@ -83,8 +82,21 @@ export default {
         },
         addToCart(item){
           let newItem = item
-          newItem.price = parseInt(item.price)
-          this.cart.push(newItem)
+          let indexAlready = _.findIndex(this.cart, ['product_id', item.id])
+          if (indexAlready == -1) {
+            let cartItem = {
+              product_id: item.id,
+              product_name: item.name,
+              quantity: 1,
+              price: item.price,
+              subtotal: parseInt(item.price)
+            }
+            this.cart.push(cartItem)
+          } else {
+            let cartItem = this.cart[indexAlready]
+            cartItem.quantity = cartItem.quantity + 1
+            cartItem.subtotal =cartItem.price * cartItem.quantity
+          }
         },
         formatter(row, column) {
             return row.address;
