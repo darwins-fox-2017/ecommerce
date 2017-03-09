@@ -31,7 +31,10 @@
                     <el-button style="float: right;" type="primary">Purchase now</el-button>
                 </div>
                 <div v-for="item in cart" class="text item">
-                      {{ item.product_name }} [ X {{ item.quantity }} ]<span class="right">{{ toRupiah(item.subtotal) }}</span>
+                      {{ item.product_name }} [ X {{ item.quantity }}
+                      ]<span class="right">{{ toRupiah(item.subtotal) }}
+                        <el-button size="mini" icon="delete" type="danger" @click.native="deleteFromCart(item.product_id)"></el-button>
+                      </span>
                 </div>
                 <div class="">
                   <span class="total title">Total</span> <span class="total right">{{ total }}</span>
@@ -97,6 +100,10 @@ export default {
             cartItem.quantity = cartItem.quantity + 1
             cartItem.subtotal =cartItem.price * cartItem.quantity
           }
+        },
+        deleteFromCart(product_id){
+          let indexAlready = _.findIndex(this.cart, ['product_id', product_id])
+          this.cart.splice(indexAlready, 1)
         },
         formatter(row, column) {
             return row.address;
