@@ -34,7 +34,7 @@
                       {{ item.name }} <span class="right">{{ item.price }}</span>
                 </div>
                 <div class="">
-                  <span class="total title">Total</span> <span class="total right">Rp. {{ total }}</span>
+                  <span class="total title">Total</span> <span class="total right">{{ total }}</span>
                 </div>
             </el-card>
         </el-col>
