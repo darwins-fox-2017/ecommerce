@@ -3,41 +3,69 @@
     <el-button type="primary" @click.native="checkout">Checkout</el-button>
     <br/>
     <br/>
-    <el-row>
-  <el-col :span="8" v-for="item in items" :offset="index > 0 ? 2 : 0">
-    <el-card :body-style="{ padding: '0px' }">
-      <img src="http://destinasi-indonesia.com/wp-content/uploads/2016/08/Oleh-oleh-Belitung-Sirup-Jeruk-Kunci.jpg" class="image">
-      <div style="padding: 14px;">
-        <span>{{ item.name }}</span>
-        <div class="bottom clearfix">
-          <p>
-            {{ item.description }}
-          </p>
-          <h3>Rp. {{ item.price }}</h3>
-          <el-button type="primary" class="button" >Add to cart</el-button>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-</el-row>
-  </div>
+
+    <el-row :gutter="20">
+        <el-col :span="16">
+            <el-row :gutter="20">
+                <el-col :span="8" v-for="item in items" :offset="index > 0 ? 2 : 0">
+                    <el-card :body-style="{ padding: '0px' }">
+                        <img src="http://destinasi-indonesia.com/wp-content/uploads/2016/08/Oleh-oleh-Belitung-Sirup-Jeruk-Kunci.jpg" class="image">
+                        <div style="padding: 14px;">
+                            <h3>{{ item.name }}</h3>
+                            <div class="bottom clearfix">
+                                <p>
+                                    {{ item.description }}
+                                </p>
+                                <h3>{{ item.price }}</h3>
+                                <el-button type="primary" class="button" @click.native="addToCart(item)">Add to cart</el-button>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-col>
+        <el-col :span="8">
+            <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span style="line-height: 36px;">Shoping cart</span>
+                    <el-button style="float: right;" type="primary">Purchase now</el-button>
+                </div>
+                <div v-for="item in cart" class="text item">
+                      {{ item.name }} <span class="right">{{ item.price }}</span>
+                </div>
+                <div class="">
+                  <span class="total title">Total</span> <span class="total right">Rp. {{ total }}</span>
+                </div>
+            </el-card>
+        </el-col>
+    </el-row>
+
+</div>
 </template>
 
 <script>
 import axios from 'axios';
+import _ from 'lodash'
+import rupiah from 'rupiah-format'
 let host = 'http://localhost:3000/api';
 
 export default {
     data() {
         return {
-            items: []
+            items: [],
+            cart: []
         }
     },
     created() {
         console.log('run');
         this.getItems()
     },
-
+    computed: {
+      total: function(){
+        console.log('--------------------', rupiah.convert(_.sumBy(this.cart, 'price')));
+        return rupiah.convert(_.sumBy(this.cart, 'price'))
+      }
+    },
     methods: {
         getItems() {
             let self = this;
@@ -50,27 +78,10 @@ export default {
                     console.log(e);
                 })
         },
-        addItem() {
-            this.$router.push('/items/new')
-        },
-        handleDelete(index, row) {
-            this.items.slice(index, 1)
-            let self = this
-            axios.delete(host + '/items/' + row.id).then(response => {
-                console.log(response);
-                if (response.status) {
-                    self.getItems()
-                } else {
-                    self.$notify({
-                        title: 'Error',
-                        message: 'Something wrong while trying to delete this item',
-                        duration: 6000
-                    })
-                }
-            })
-        },
-        handleEdit(index, row) {
-            this.$router.push('/items/' + row.id + '/edit')
+        addToCart(item){
+          let newItem = item
+          newItem.price = parseInt(item.price)
+          this.cart.push(newItem)
         },
         formatter(row, column) {
             return row.address;
@@ -83,15 +94,32 @@ export default {
 .image {
     width: 100%;
     display: block;
-  }
+}
+.text {
+  font-size: 14px;
+}
 
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
+.item {
+  padding: 10px 0;
+}
 
-  .clearfix:after {
-      clear: both
-  }
+.total {
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+.right {
+  float: right;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}
 </style>
