@@ -9,7 +9,7 @@
             <el-row :gutter="20">
                 <el-col :span="8" v-for="item in items" :offset="index > 0 ? 2 : 0">
                     <el-card :body-style="{ padding: '0px' }">
-                        <img src="http://destinasi-indonesia.com/wp-content/uploads/2016/08/Oleh-oleh-Belitung-Sirup-Jeruk-Kunci.jpg" class="image">
+                        <img :src="item.pictlink" class="image">
                         <div style="padding: 14px;">
                             <h3>{{ item.name }}</h3>
                             <div class="bottom clearfix">
@@ -56,12 +56,15 @@ export default {
     data() {
         return {
             items: [],
-            cart: []
+            cart: [],
+            local: localStorage.getItem('storedData')
         }
     },
     created() {
         console.log('run');
         this.getItems()
+        this.cart = JSON.parse(this.$localStorage.get('cart'))
+        console.log(this.cart);
     },
     computed: {
       total: function(){
@@ -79,6 +82,8 @@ export default {
                 .catch(e => {
                     console.log(e);
                 })
+
+
         },
         toRupiah(price){
           return rupiah.convert(price)
@@ -100,10 +105,12 @@ export default {
             cartItem.quantity = cartItem.quantity + 1
             cartItem.subtotal =cartItem.price * cartItem.quantity
           }
+           this.$localStorage.set('cart', JSON.stringify(this.cart))
         },
         deleteFromCart(product_id){
           let indexAlready = _.findIndex(this.cart, ['product_id', product_id])
           this.cart.splice(indexAlready, 1)
+
         },
         formatter(row, column) {
             return row.address;
@@ -113,6 +120,9 @@ export default {
 </script>
 
 <style>
+.el-col  {
+  margin-bottom: 20px;
+}
 .image {
     width: 100%;
     display: block;
@@ -128,7 +138,6 @@ export default {
 .total {
   font-size: 18px;
   font-weight: bold;
-
 }
 
 .right {
