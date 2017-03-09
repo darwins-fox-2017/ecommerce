@@ -26,7 +26,7 @@
   </el-form-item>
   <el-form-item>
     <el-button type="primary" @click="onSubmit">Update item</el-button>
-    <el-button>Cancel</el-button>
+    <el-button @click.native="backToList">Cancel</el-button>
   </el-form-item>
 </el-form>
   </div>
@@ -55,7 +55,6 @@ export default {
         },
         onSubmit() {
           let self = this
-          console.log('isi router : ', self.$route.params.id);
           axios.put(host + '/items/' + self.$route.params.id + '/update', self.form).then(x => {
             console.log(x);
               if(x.status){
@@ -68,7 +67,7 @@ export default {
         },
         getItem(){
           let self = this
-          axios.get(host + '/items/' + 5 + '/edit').then(item => {
+          axios.get(host + '/items/' + self.$route.params.id + '/edit').then(item => {
             self.form = item.data
           })
         }

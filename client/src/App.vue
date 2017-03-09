@@ -10,6 +10,7 @@
             <el-menu-item index="2-2">Create</el-menu-item>
           </el-submenu>
       <el-menu-item index="3">Orders</el-menu-item>
+      <el-menu-item index="3"><router-link to="/shop">Shop</router-link></el-menu-item>
       <el-menu-item index="3"><router-link to="/users">Users</router-link></el-menu-item>
     </el-menu>
 <br/>
