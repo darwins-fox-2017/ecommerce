@@ -16,7 +16,7 @@
                                 <p>
                                     {{ item.description }}
                                 </p>
-                                <h3>{{ item.price }}</h3>
+                                <h3>{{toRupiah(item.price )}}</h3>
                                 <el-button type="primary" class="button" @click.native="addToCart(item)">Add to cart</el-button>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                     <el-button style="float: right;" type="primary">Purchase now</el-button>
                 </div>
                 <div v-for="item in cart" class="text item">
-                      {{ item.name }} <span class="right">{{ item.price }}</span>
+                      {{ item.name }} <span class="right">{{ toRupiah(item.price) }}</span>
                 </div>
                 <div class="">
                   <span class="total title">Total</span> <span class="total right">{{ total }}</span>
@@ -77,6 +77,9 @@ export default {
                 .catch(e => {
                     console.log(e);
                 })
+        },
+        toRupiah(price){
+          return rupiah.convert(price)
         },
         addToCart(item){
           let newItem = item
