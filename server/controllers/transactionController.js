@@ -4,11 +4,6 @@ module.exports = {
   createTransaction: function(req,res){
     Transaction.create({
       memberid: req.body.id,
-      days: req.body.days,
-      out_date: new Date(),
-      due_date: new Date(),
-      in_date: new Date(),
-      fine: req.body.fine,
     }, function (err, data) {
       if (err) {
         res.send(err)
@@ -37,7 +32,7 @@ module.exports = {
   },
   readTransactions: function(req,res){
     Transaction.find({})
-      .populate('booklist')
+      .populate('itemlist')
       .exec(function(err,data){
         if(err){
           res.send(err)
@@ -48,7 +43,7 @@ module.exports = {
   },
   readTransaction: function(req,res){
     Transaction.findOne({_id:req.params.id})
-      .populate('booklist')
+      .populate('itemlist')
       .exec(function(err,data){
         if(err){
           res.send(err)
@@ -57,10 +52,10 @@ module.exports = {
         }
       });
   },
-  addBooksToCart : function (req, res) {
+  addItemsToCart : function (req, res) {
     Transaction.update(
         {_id: req.params.id},
-        {$push: {booklist:{isbn: req.body.bookid}}},
+        {$push: {itemlist:{isbn: req.body.itemid}}},
         {upsert: true}, function(err,data){
           if(err){
             res.send(err)
@@ -70,10 +65,10 @@ module.exports = {
         })
     },
 
-  deleteBooksfromCart : function (req, res) {
+  deleteItemsfromCart : function (req, res) {
     Transaction.update(
         {_id: req.params.id},
-        {$pull: {booklist:{isbn: req.body.bookid}}},
+        {$pull: {itemlist:{isbn: req.body.itemid}}},
         {upsert: true}, function(err,data){
           if(err){
             res.send(err)

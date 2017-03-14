@@ -1,4 +1,5 @@
 var Customer = require('../models/customer')
+var hash = require('password-hash')
 
 module.exports = {
   createCustomer: function(req,res){
@@ -7,7 +8,8 @@ module.exports = {
       memberid: req.body.memberid,
       address: req.body.address,
       zipcode: req.body.zipcode,
-      phone: req.body.phone
+      phone: req.body.phone,
+      password: hash.generate(req.body.password, 'adadeehhh')
     }, function (err, data) {
       if (err) {
         res.send(err)

@@ -6,7 +6,8 @@ var customerSchema = new Schema({
   memberid: String,
   address: String,
   zipcode: Number,
-  phone: String
+  phone: String,
+  password: String,
 },{
   timestamps:true
 })
