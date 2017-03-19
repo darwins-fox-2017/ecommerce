@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="./bower_components/axios/dist/axios.js"></script>
+    <script type="text/javascript" src="./bower_components/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <title>Project E-commerce</title>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="col s12">
+            <p>Header</p>
+            <div>
+                <p>Total pesanan barang</p>
+                <p> {{ orderedItems }} </p>
+                <input type="submit" name="" value="Checkout" @click.prevent="checkout">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2">
+                <p>menubar</p>
+            </div>
+            <div class="col s10">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s6" v-for="item in items">
+                                <img v-bind:src="item.image" alt="image" width="100%">
+                                <p>{{ item.name }}</p>
+                                <input type="submit" name="" value="Tambah ke kerangjang" @click.prevent="addItem(item)">
+                                <p>description: {{ item.description }}</p>
+                                <p>Price: Rp {{ item.price }} ,-</p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <p>Ini footer</p>
+            </div>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    items: [],
+                    orderedItems: []
+                },
+                created() {
+                    this.getItems()
+                },
+
+                methods: {
+                    checkout: function() {
+                        console.log(`BARANG BELANJA----------------------------------------------------------`);
+                        // Send a POST request
+                        axios.post('http://localhost:3000/cart', {
+                                dataId: 1,
+                                memberId: "KUCING",
+                                total: 6000000,
+                                transaction_date: new Date(),
+                                itemList: app.orderedItems
+                            })
+                            .then(function(response) {
+                                console.log(response);
+                                console.log(`data sudah dimasukkan`);
+                            })
+                            .catch(function(error) {
+                                console.log(`data belum dimasukkan`);
+                            });
+                    },
+                    addItem: function(item) {
+                        // console.log(item);
+                        this.orderedItems.push({
+                            price: item.price,
+                            qty: 1,
+                            itemCode: item.itemCode,
+                            // name: item.name
+                        })
+                    },
+                    getItems() {
+                        // let self = this
+                        axios.get('http://localhost:3000/').then(function(response) {
+                            // console.log(response);
+                            this.app.items = response.data
+                        })
+                    }
+                }
+            })
+        </script>
+</body>
+
+</html>
