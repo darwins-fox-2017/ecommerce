@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <div id="app">
+        <p>{{ message }}</p>
+        <span title="message">
+          Hover your mouse over me for a few seconds to see my dynamically bound title!
+        </span>
+        <input v-model="message">
+        <p>{{ gundam }}</p>
+        <input v-model="gundam">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                gundam: [{
+                    zeon: "shinanju"
+                }],
+                message: 'irwin!',
+                todos: [{
+                        text: 'Learn JavaScript'
+                    },
+                    {
+                        text: 'Learn Vue'
+                    },
+                    {
+                        text: 'Build something awesome'
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
