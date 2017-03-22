@@ -55,7 +55,7 @@ module.exports = {
   addItemsToCart : function (req, res) {
     Transaction.update(
         {_id: req.params.id},
-        {$push: {itemlist:{isbn: req.body.itemid}}},
+        {$push: {itemlist:{id: req.body.itemid}}},
         {upsert: true}, function(err,data){
           if(err){
             res.send(err)
@@ -68,7 +68,7 @@ module.exports = {
   deleteItemsfromCart : function (req, res) {
     Transaction.update(
         {_id: req.params.id},
-        {$pull: {itemlist:{isbn: req.body.itemid}}},
+        {$pull: {itemlist:{id: req.body.itemid}}},
         {upsert: true}, function(err,data){
           if(err){
             res.send(err)
